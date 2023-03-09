@@ -22,7 +22,10 @@ class HighSchoolViewModel : ViewModel() {
     val schoolListResult: LiveData<Response<List<HighSchool>>> = _schoolListResult
 
     fun getHighSchoolList() {
+
+        //launch in IO dispatcher to fetch the suspend school list api
         viewModelScope.launch(Dispatchers.IO) {
+            // try and catch the SAT api for issues. Using postValue(happens in main dispatcher) to set the _schoolResult
             try {
                 val response = SchoolRepository.getHighSchools()
                 _schoolListResult.postValue(response)

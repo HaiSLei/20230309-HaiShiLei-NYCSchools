@@ -25,11 +25,14 @@ class HighSchoolAdapter(private val onSchoolClicked : (school : HighSchool) -> U
     inner class HighSchoolViewHolder(private val binding: ListItemHighSchoolBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        // binding the high school details for each item
             fun bind(highSchool: HighSchool) {
                 binding.listItemHighSchoolNameTextView.text = highSchool.schoolName
                 val address = highSchool.schoolAddress + ", " + highSchool.city + ", " + highSchool.State + ", " + highSchool.zip
                 binding.listItemHighSchoolAddressTextView.text = address
                 binding.listItemHighSchoolPhoneTextView.text = highSchool.phone
+
+                // listener for on click for the high school item and navigate to SAT detail fragment
                 binding.root.setOnClickListener {
                     onSchoolClicked(highSchool)
                 }

@@ -33,7 +33,7 @@ class SatInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.satResult.observe(viewLifecycleOwner) {
-            // if response is successful, continue to show view with high school sat and other details. Else toast user to try again
+            // if response is successful, continue to show view with high school SAT and other details. Else toast user to try again
             if (it.isSuccessful) {
 
                 //TODO: if given more time,account for fields that are empty such as email and adjust views accordingly
@@ -55,6 +55,7 @@ class SatInfoFragment : Fragment() {
             }
         }
 
+        // on click listener for refresh button to fetch SAT from api. It uses the high school object passed from high school fragment
         binding?.satRetryButton?.setOnClickListener {
             arguments?.let { arg ->
                 highSchool = SatInfoFragmentArgs.fromBundle(arg).highSchool
@@ -62,6 +63,7 @@ class SatInfoFragment : Fragment() {
             }
         }
 
+        //uses the high school object passed from high school fragment. It fetches SAT api with dbn argument
         arguments?.let { arg ->
             highSchool = SatInfoFragmentArgs.fromBundle(arg).highSchool
             highSchool?.dbn?.let { hs -> viewModel.getSatInfo(hs) }

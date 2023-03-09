@@ -16,6 +16,7 @@ class HighSchoolFragment : Fragment() {
         HighSchoolViewModel()
     }
 
+    // initialize adapter by lazy and pass lambda body of navigation logic to adapter
     private val highSchoolAdapter by lazy {
         HighSchoolAdapter({
             val direction = HighSchoolFragmentDirections.actionHighSchoolToSat(it)
@@ -40,20 +41,24 @@ class HighSchoolFragment : Fragment() {
 
         binding?.highSchoolRecyclerView?.adapter = highSchoolAdapter
 
+        // observe the school list from view model and submit the list to adapter if successful
         viewModel.schoolListResult.observe(viewLifecycleOwner) {
             // if successful, submit the list to adapter else show refresh button
             if (it.isSuccessful) {
-                binding?.highSchoolRefresh?.visibility = View.INVISIBLE
+                binding?.highSchoolRefreshButton?.visibility = View.INVISIBLE
                 highSchoolAdapter.submitList(it.body())
             }
             else {
                 Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
-                binding?.highSchoolRefresh?.visibility = View.VISIBLE
+                binding?.highSchoolRefreshButton?.visibility = View.VISIBLE
             }
         }
+
+        // make the fetch call for the school list from api
         viewModel.getHighSchoolList()
 
-        binding?.highSchoolRefresh?.setOnClickListener {
+        // on click listener for refresh button to fetch school list from api
+        binding?.highSchoolRefreshButton?.setOnClickListener {
             viewModel.getHighSchoolList()
         }
     }

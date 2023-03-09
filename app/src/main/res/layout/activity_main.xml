@@ -10,11 +10,11 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:title="NYC High School"
+        app:title="NYC High Schools"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/blue"
+        android:background="@color/grey"
         app:popupTheme="@style/Theme.MyApplication.PopupOverlay" />
 
     <!--TODO: if given more time, change it to fragmentContainerView   -->

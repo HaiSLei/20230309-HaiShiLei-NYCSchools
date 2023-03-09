@@ -22,7 +22,10 @@ class SatInfoViewModel: ViewModel() {
     val satResult: LiveData<Response<List<SchoolSatInfo>>> = _satResult
 
     fun getSatInfo(dbn : String) {
+
+        //launch in IO dispatcher to fetch the suspend SAT api
         viewModelScope.launch(Dispatchers.IO) {
+            // try and catch the SAT api for issues. Using postValue(happens in main dispatcher) to set the _satResult
             try {
                 val response = SchoolRepository.getSAT(dbn)
                 _satResult.postValue(response)
